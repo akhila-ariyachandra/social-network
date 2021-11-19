@@ -1,0 +1,5 @@
+next-env.d.ts
+.next
+.vercel
+package-lock.json
+.eslintrc.json

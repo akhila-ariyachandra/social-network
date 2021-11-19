@@ -1,0 +1,6 @@
+// Try to use full height without "min-height: 100vh"
+html,
+body,
+#__next {
+  height: 100%;
+}
