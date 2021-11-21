@@ -1,4 +1,5 @@
 import CssBaseline from "@mui/material/CssBaseline";
+import Layout from "@/components/Layout";
 import createEmotionCache from "@/lib/createEmotionCache";
 import theme from "@/lib/theme";
 import type { AppProps } from "next/app";
@@ -36,7 +37,9 @@ const MyApp = ({
             <ThemeProvider theme={theme}>
               <CssBaseline />
 
-              <Component {...pageProps} />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </ThemeProvider>
           </CacheProvider>
         </Hydrate>

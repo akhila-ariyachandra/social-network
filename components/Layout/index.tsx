@@ -1,3 +1,4 @@
+import Container from "@mui/material/Container";
 import Header from "@/components/Layout/Header";
 import type { FC } from "react";
 
@@ -6,7 +7,7 @@ const Layout: FC = ({ children }) => {
     <>
       <Header />
 
-      {children}
+      <Container sx={{ p: 4 }}>{children}</Container>
     </>
   );
 };
