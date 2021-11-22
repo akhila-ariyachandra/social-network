@@ -6,20 +6,24 @@ import ProfilePicture from "@/components/ProfilePicture";
 import { FC, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const NewPost: FC = () => {
+const NewComment: FC = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { data: session, status } = useSession();
   const [value, setValue] = useState("");
+
+  const id = router.query.id as string;
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  const newPostMutation = useMutation(
+  const newCommentMutation = useMutation(
     async (content: string) => {
       await api.request({
-        url: "/post",
+        url: `/post/${id}/comment`,
         method: "POST",
         data: {
           content,
@@ -28,7 +32,7 @@ const NewPost: FC = () => {
     },
     {
       onSettled: () => {
-        queryClient.invalidateQueries("posts");
+        queryClient.invalidateQueries(["post", id]);
       },
       onSuccess: () => {
         setValue("");
@@ -39,13 +43,13 @@ const NewPost: FC = () => {
   return (
     <Box>
       <TextField
-        label="New Post"
+        label="New Comment"
         multiline
         fullWidth
-        minRows={4}
+        minRows={2}
         value={value}
         onChange={handleChange}
-        disabled={newPostMutation.isLoading || status !== "authenticated"}
+        disabled={newCommentMutation.isLoading || status !== "authenticated"}
       />
 
       <Box
@@ -61,8 +65,8 @@ const NewPost: FC = () => {
 
         <LoadingButton
           variant="contained"
-          loading={newPostMutation.isLoading}
-          onClick={() => newPostMutation.mutate(value)}
+          loading={newCommentMutation.isLoading}
+          onClick={() => newCommentMutation.mutate(value)}
           disabled={!value || status !== "authenticated"}
         >
           Submit
@@ -72,4 +76,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default NewComment;

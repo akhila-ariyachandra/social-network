@@ -1,5 +1,6 @@
 import api from "@/lib/api";
 import prisma from "@/prisma";
+import Head from "next/head";
 import NewPost from "@/components/NewPost";
 import Post from "@/components/Post";
 import type { NextPage, GetStaticProps } from "next";
@@ -15,6 +16,10 @@ const Index: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Social Network</title>
+      </Head>
+
       <NewPost />
 
       {data?.map((post) => (

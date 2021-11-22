@@ -24,6 +24,9 @@ const PostHandler: NextApiHandler = async (req, res) => {
             },
           },
         },
+        orderBy: {
+          postedOn: "desc",
+        },
       },
     },
     rejectOnNotFound: true,
